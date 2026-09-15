@@ -3,20 +3,13 @@ Treehouse Techdegree:
 FSJS Project 2 - Data Pagination and Filtering
 */
 
-/*
-For assistance:
-   Check out the "Project Resources" section of the Instructions tab: https://teamtreehouse.com/projects/data-pagination-and-filtering#instructions
-   Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2 
-*/
-
-// gets the array of objects from the dom
+//Universal variables
 
 console.log(data);
 const studentsPerPage = 9;
+const searchInput = document.querySelector("#search");
 
-// Create the `showPage` function
-// This function will create and insert/append the elements needed to display a "page" of nine students
-// */
+// Function to create and insert/append the elements needed to display 9 students
 
 function showPage(list, page) {
   // this will equal to 0 for the first index
@@ -53,19 +46,18 @@ This function will create and insert/append the elements needed for the paginati
 */
 
 function addPagination(list) {
-  // create a variable to calculate the number of pages needed
+  // variable to calculate the number of pages needed
   const numberOfPages = Math.ceil(list.length / studentsPerPage);
 
-  // select the element with a class of `link-list` and assign it to a variable
+  //variable to select the element with a class of `link-list` and assign it to a variable
   const linkList = document.querySelector(".link-list");
 
-  // set the innerHTML property of the variable you just created to an empty string
+  // set the innerHTML property of the  above variable to an empty string
   linkList.innerHTML = "";
 
   // loop over the number of pages needed starting at page 1
   for (let i = 1; i <= numberOfPages; i++) {
-    // create the elements needed to display the pagination button
-    // insert the above elements
+    // create the elements needed to display the pagination button and  insert the elements
     const button = `<li>
      <button type="button">${i}</button>
    </li>`;
@@ -73,8 +65,8 @@ function addPagination(list) {
   }
 
   // give the first pagination button a class of "active"
-
   linkList.querySelector("button").className = "active";
+
   // create an event listener on the `link-list` element
   linkList.addEventListener("click", (event) => {
     // if the click target is a button:
@@ -85,11 +77,33 @@ function addPagination(list) {
       // add the active class to the clicked button
       event.target.className = "active";
 
-      // call the showPage function passing the `list` parameter and page to display as arguments
+      //showPage function passing the `list` parameter and page to display as arguments
       showPage(list, event.target.textContent);
     }
   });
 }
-// Call functions
+
+//creating a search panel
+
+searchInput.addEventListener("keyup", () => {
+  const newList = [];
+  const userInput = searchInput.value.toLowerCase();
+  for (i = 0; i < studentsPerPage.length; i++) {
+    const studentName = studenst[i].name.toLowerCase();
+    if (studentName.includes(userInput)) {
+      newList.push(students[i]);
+    }
+  }
+  if (newList.length > 0) {
+    addPagination(newList);
+    showPage(newList, 1);
+  } else {
+    const message = "<h3>No Results Found...</h3>";
+    studentContainer.innerHTML = message;
+    addPagination(newList).innerHTML = "";
+  }
+});
+
+//Function Calls
 showPage(data, 1);
 addPagination(data);
