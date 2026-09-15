@@ -99,7 +99,7 @@ searchInput.addEventListener("keyup", () => {
     showPage(newList, 1);
   } else {
     const message = "<h3>No Results Found...</h3>";
-    studentContainer.innerHTML = message;
+    studentList.innerHTML = message;
     addPagination(newList).innerHTML = "";
   }
 });
