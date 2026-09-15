@@ -47,10 +47,49 @@ function showPage(list, page) {
     }
   }
 }
-showPage(data, 2);
 /*
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 
+function addPagination(list) {
+  // create a variable to calculate the number of pages needed
+  const numberOfPages = Math.ceil(list.length / studentsPerPage);
+
+  // select the element with a class of `link-list` and assign it to a variable
+  const linkList = document.querySelector(".link-list");
+
+  // set the innerHTML property of the variable you just created to an empty string
+  linkList.innerHTML = "";
+
+  // loop over the number of pages needed starting at page 1
+  for (let i = 1; i <= numberOfPages; i++) {
+    // create the elements needed to display the pagination button
+    // insert the above elements
+    const button = `<li>
+     <button type="button">${i}</button>
+   </li>`;
+    linkList.insertAdjacentHTML("beforeend", button);
+  }
+
+  // give the first pagination button a class of "active"
+
+  linkList.querySelector("button").className = "active";
+  // create an event listener on the `link-list` element
+  linkList.addEventListener("click", (event) => {
+    // if the click target is a button:
+    if (event.target.tagName === "BUTTON") {
+      // remove the "active" class from the previous button
+      linkList.querySelector(".active").className = "";
+
+      // add the active class to the clicked button
+      event.target.className = "active";
+
+      // call the showPage function passing the `list` parameter and page to display as arguments
+      showPage(list, event.target.textContent);
+    }
+  });
+}
 // Call functions
+showPage(data, 1);
+addPagination(data);
