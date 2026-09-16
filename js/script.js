@@ -2,12 +2,12 @@
 Treehouse Techdegree:
 FSJS Project 2 - Data Pagination and Filtering
 */
+//I am aiming for meets expectations
 
 //Universal variables
 
 console.log(data);
 const studentsPerPage = 9;
-const searchInput = document.querySelector("#search");
 
 // Function to create and insert/append the elements needed to display 9 students
 
@@ -16,7 +16,7 @@ function showPage(list, page) {
   let startIndex = (page - 1) * studentsPerPage;
   let endIndex = page * studentsPerPage;
   let studentList = document.querySelector(".student-list");
-  studentList.innerHTML = " ";
+  studentList.innerHTML = "";
 
   //looping through the data
   for (let i = 0; i < list.length; i++) {
@@ -82,27 +82,6 @@ function addPagination(list) {
     }
   });
 }
-
-//creating a search panel
-
-searchInput.addEventListener("keyup", () => {
-  const newList = [];
-  const userInput = searchInput.value.toLowerCase();
-  for (i = 0; i < studentsPerPage.length; i++) {
-    const studentName = studenst[i].name.toLowerCase();
-    if (studentName.includes(userInput)) {
-      newList.push(students[i]);
-    }
-  }
-  if (newList.length > 0) {
-    addPagination(newList);
-    showPage(newList, 1);
-  } else {
-    const message = "<h3>No Results Found...</h3>";
-    studentList.innerHTML = message;
-    addPagination(newList).innerHTML = "";
-  }
-});
 
 //Function Calls
 showPage(data, 1);
